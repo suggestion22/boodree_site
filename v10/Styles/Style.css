@@ -1,0 +1,357 @@
+/* ================================
+   FONT IMPORTS
+=================================== */
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+/* ================================
+   GLOBAL RESET & BASE
+=================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  background-color: #FFFBEA;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  line-height: 1.7;
+  color: #333;
+}
+
+h1, h2, h3 {
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 400;
+  letter-spacing: -1px;
+}
+
+/* ================================
+   SECTION LAYOUT
+=================================== */
+section {
+  width: 100%;
+  padding: 100px 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.section-inner {
+  width: min(90%, 1400px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+/* ================================
+   HERO
+=================================== */
+.hero {
+  background: linear-gradient(#FFFBEA, #FFD54F);
+  text-align: center;
+  padding: 150px 10%;
+}
+.hero img {
+  width: 260px;
+  max-width: 80%;
+}
+.hero h1 {
+  color: #004B29;
+  font-size: 2.6rem;
+  margin-top: 20px;
+}
+.hero h1 span {
+  color: #FFD54F;
+}
+.hero .sub-text {
+  color: #6D4C41;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+/* ================================
+   PROBLEM
+=================================== */
+.problem {
+  background-color: #004B29;
+  color: #FFFBEA;
+}
+.problem h2 {
+  color: #FFD54F;
+}
+.problem .image-block img {
+  width: 320px;
+  max-width: 80%;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ================================
+   REBRANDING
+=================================== */
+.rebranding {
+  background-color: #FFD54F;
+  color: #004B29;
+}
+.rebranding .image-block.double {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: #FFF;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  width: fit-content;
+  margin: 0 auto;
+}
+.rebranding .image-block.double img {
+  width: 48%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  background-color: #FFFBEA;
+}
+.rebranding .image-block.double img:hover {
+  transform: scale(1.03);
+}
+
+/* ================================
+   INTRODUCTION ~ MEDIA (統一 COLOR)
+=================================== */
+.introduction,
+.characters,
+.behind,
+.media {
+  background-color: #004B29;
+  color: #FFFBEA;
+}
+
+.introduction h2,
+.characters h2,
+.behind h2,
+.media h2 {
+  color: #FFD54F;
+}
+
+/* 공통 이미지 스타일 */
+.introduction .image-block img,
+.behind .image-block img {
+  width: 380px;
+  max-width: 90%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: none;
+  transition: transform 0.3s ease;
+}
+.introduction .image-block img:hover,
+.behind .image-block img:hover {
+  transform: scale(1.03);
+}
+
+/* 캐릭터 카드 */
+.character-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 40px;
+}
+.char-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 213, 79, 0.5);
+  border-radius: 16px;
+  width: 260px;
+  padding: 25px 15px;
+  transition: all 0.3s ease;
+}
+.char-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
+}
+.char-card img {
+  width: 100%;
+  border-radius: 12px;
+}
+.char-card h3 {
+  color: #FFD54F;
+  margin-top: 15px;
+}
+
+/* ================================
+   MEDIA SECTION
+=================================== */
+.media {
+  text-align: center;
+}
+.media .text-block {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.media .text-block h2 {
+  color: #FFD54F;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.media .text-block p {
+  color: #FFFBEA;
+  font-size: 1.05rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.media-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-top: 50px;
+}
+.media-card {
+  width: 320px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 25px 20px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+.media-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.15);
+}
+.media-card h3 {
+  color: #FFD54F;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid rgba(255, 213, 79, 0.6);
+  padding-bottom: 6px;
+}
+.media-card p {
+  color: #FFFBEA;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+/* ================================
+   SECTION DIVIDER
+=================================== */
+.introduction::after,
+.characters::after,
+.behind::after {
+  content: "";
+  display: block;
+  width: 98%;
+  max-width: 1800px;
+  height: 2px;
+  background-color: #FFD54F;
+  margin: 100px auto 0 auto;
+  opacity: 0.95;
+  border-radius: 1px;
+}
+
+/* ================================
+   FOOTER
+=================================== */
+footer {
+  background: #002F1C;
+  color: #FFD54F;
+  text-align: center;
+  padding: 30px 0;
+  font-size: 0.9rem;
+}
+
+/* ================================
+   ANIMATION
+=================================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1.2s ease forwards;
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+=================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .section-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .rebranding .image-block.double {
+    flex-direction: column;
+  }
+  .rebranding .image-block.double img {
+    width: 80%;
+  }
+  .char-card {
+    width: 45%;
+  }
+  .media-card {
+    width: 45%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .section-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.6rem;
+  }
+  .hero img {
+    width: 200px;
+  }
+  .problem .image-block img {
+    width: 80%;
+  }
+  .rebranding .image-block.double img {
+    width: 90%;
+  }
+  .char-card, .media-card {
+    width: 80%;
+  }
+  .introduction .image-block img,
+  .behind .image-block img {
+    width: 85%;
+  }
+  footer {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+  .section-inner {
+    gap: 30px;
+  }
+  .char-card, .media-card {
+    width: 100%;
+  }
+  .rebranding .image-block.double {
+    padding: 15px;
+  }
+  .media-grid {
+    gap: 20px;
+  }
+}
