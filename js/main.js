@@ -27,3 +27,47 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+// ================================
+// Scroll Navigation Activation + Click Navigation
+// ================================
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".scroll-nav a");
+
+// Scroll 시 현재 섹션 하이라이트
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    if (scrollY >= sectionTop - sectionHeight / 3) {
+      current = section.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === `#${current}`) {
+      link.classList.add("active");
+    }
+  });
+});
+
+// 클릭 시 해당 섹션으로 부드럽게 스크롤 이동
+navLinks.forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    const targetId = link.getAttribute("href").substring(1);
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      window.scrollTo({
+        top: targetSection.offsetTop,
+        behavior: "smooth"
+      });
+    }
+  });
+});
+
+// ================================
+// 기존 JS 코드 유지 (필요 시 아래에 추가)
+// ================================
