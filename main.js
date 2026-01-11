@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) entry.target.classList.add("is-visible");
-        //else entry.target.classList.remove("is-visible"); // 한 번만 보이게 하려면 이 줄 삭제
+        else entry.target.classList.remove("is-visible"); // 한 번만 보이게 하려면 이 줄 삭제
       });
     },
     { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
