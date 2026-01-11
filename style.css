@@ -40,6 +40,37 @@ h3 {
   letter-spacing: -1px;
 }
 
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.btn-ghost {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--text);
+  background: transparent;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
 /* ================================
    HEADER
 ================================ */
@@ -118,13 +149,6 @@ header .container {
 }
 
 /* ================================
-   MAIN
-================================ */
-main {
-  padding-top: 0; /* 헤더 높이에 맞게 조정 가능 */
-}
-
-/* ================================
    SECTION BASE
 ================================ */
 
@@ -140,6 +164,13 @@ main {
   scroll-margin-top: 72px; /* ✅ 80 → 72 */
 
   text-align: center;
+}
+
+.section-lead {
+  max-width: 70ch;
+  margin: 18px auto 28px;
+  text-align: center;
+  line-height: 1.8;
 }
 
 /* ================================
@@ -188,6 +219,7 @@ main {
   align-items: center;
   gap: 18px;
   /* 위·아래 간격 */
+
   font-size: clamp(2.4rem, 4.6vw, 4rem);
   line-height: 1.05;
   color: var(--text);
@@ -198,8 +230,9 @@ main {
 }
 
 .hero-image img {
-  width: 140px; /* 필요에 따라 80~160px */
+  width: clamp(90px, 10vw, 140px);
   height: auto;
+  display: block;
 }
 
 .hero-subtitle {
@@ -217,36 +250,6 @@ main {
   margin-top: 10px;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 18px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition: transform 200ms ease, opacity 200ms ease;
-}
-
-.btn:active {
-  transform: translateY(1px);
-}
-
-.btn-primary {
-  background: var(--text);
-  color: var(--bg);
-}
-
-.btn-ghost {
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  color: var(--text);
-  background: transparent;
-}
-
-.btn:hover {
-  opacity: 0.9;
-}
 
 .hero-meta {
   margin-top: 12px;
@@ -255,39 +258,418 @@ main {
 }
 
 
-
 /* ================================
    PROBLEM
 ================================ */
 
+.problem-content {
+  text-align: left;
+}
 
+.section-kicker {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  text-align: center;
+}
+
+.section-title {
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 400;
+  letter-spacing: -1px;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.problem .section-lead {
+  max-width: 72ch;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.problem-card {
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 18px;
+  padding: 18px 18px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.problem-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.problem-card ul {
+  list-style: none;
+  padding-left: 0;
+  opacity: 0.85;
+  line-height: 1.75;
+}
+
+.problem-card li+li {
+  margin-top: 6px;
+}
+
+.problem-conclusion {
+  max-width: 78ch;
+  margin: 22px auto 0;
+  text-align: center;
+  opacity: 0.9;
+  line-height: 1.8;
+}
+
+.problem-conclusion strong {
+  color: var(--text);
+}
+
+.problem-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 38px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-content {
+    text-align: center;
+  }
+
+  .problem-card {
+    text-align: left;
+    /* 카드 안은 읽기 좋게 */
+  }
+}
 
 /* ================================
    REBRANDING
 ================================ */
 
+.rebranding-content {
+  text-align: left;
+}
 
+.rebranding .section-lead {
+  max-width: 90ch;
+}
+
+.rebranding-highlight {
+  max-width: 72ch;
+  margin: 18px auto 22px;
+  padding: 16px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.30);
+  text-align: center;
+}
+
+.rebranding-highlight p {
+  margin: 0;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+.rebranding-media {
+  display: flex;
+  justify-content: center;
+  margin: 14px auto 18px;
+  /* 위/아래 간격 */
+}
+
+.rebranding-media img {
+  width: clamp(120px, 18vw, 220px);
+  height: auto;
+  display: block;
+}
+
+.rebranding-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.rebranding-card {
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.rebranding-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.rebranding-card p {
+  margin: 0;
+  opacity: 0.85;
+  line-height: 1.75;
+}
+
+.rebranding-conclusion {
+  max-width: 82ch;
+  margin: 22px auto 0;
+  text-align: center;
+  opacity: 0.9;
+  line-height: 1.8;
+}
+
+.rebranding-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 38px;
+}
 
 /* ================================
    INTRODUCTION
 ================================ */
 
+.intro-content {
+  text-align: left;
+}
 
+.intro-question {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 14px;
+  opacity: 0.85;
+}
 
+.intro-body {
+  max-width: 78ch;
+  margin: 22px auto 0;
+  line-height: 1.95;
+  opacity: 0.9;
+}
+
+.intro-body p+p {
+  margin-top: 14px;
+  /* 문단 간 리듬 */
+}
+
+.intro-emphasis {
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 18px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.28);
+  margin: 18px 0;
+}
+
+.intro-emphasis strong {
+  color: var(--text);
+}
+
+.intro-conclusion {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  opacity: 0.85;
+}
+
+.intro-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 34px;
+}
 
 /* ================================
    CHARACTERS
 ================================ */
 
+/* BOODREE 메인 */
+.character-hero {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 18px 0 22px;
+}
 
+.character-hero img {
+  width: clamp(160px, 22vw, 260px);
+  height: auto;
+}
 
+.characters-guide {
+  text-align: left;
+}
+
+.section-lead.lead-narrow {
+  max-width: 74ch;
+}
+
+/* Friends media (line-up) */
+.friends-media {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin: 14px 0 18px;
+}
+
+.friends-figure {
+  margin: 0;
+  text-align: center;
+}
+
+.friends-figure img {
+  width: clamp(90px, 12vw, 140px);
+  height: auto;
+  display: block;
+}
+
+.friends-figure figcaption {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+/* Guide blocks */
+.guide-block {
+  max-width: 92ch;
+  margin: 22px auto 0;
+  padding: 18px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.guide-title {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.guide-one {
+  margin: 0 0 14px;
+  opacity: 0.88;
+  line-height: 1.8;
+}
+
+.guide-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.guide-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.guide-label {
+  margin: 0;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.guide-value {
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.85;
+}
+
+.guide-note {
+  max-width: 92ch;
+  margin: 14px auto 0;
+  opacity: 0.8;
+  line-height: 1.8;
+}
 
 /* ================================
    CONCEPT ART
 ================================ */
+.conceptart-content {
+  overflow: hidden;
+}
 
+.conceptart-marquee {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 32px;
+  position: relative;
 
+  /* 좌우 페이드 마스킹 */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
 
+.conceptart-marquee::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(to right,
+      var(--bg) 0%,
+      rgba(255, 251, 234, 0) 12%,
+      rgba(255, 251, 234, 0) 88%,
+      var(--bg) 100%);
+}
+
+.conceptart-track {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  animation: marquee-left 35s linear infinite; /* ✅ 여기만 조절 */
+}
+
+/* 프레임(카드) */
+.concept-card {
+  margin: 0;
+  flex-shrink: 0;
+  width: clamp(260px, 32vw, 420px);
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.35);
+  padding: 12px;
+
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.concept-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.concept-card figcaption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+  text-align: center;
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
 
 
 /* ================================
@@ -298,7 +680,10 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 12px;
 
+  
   padding: 48px 16px 64px;
   font-size: 0.85rem;
   line-height: 1.6;
