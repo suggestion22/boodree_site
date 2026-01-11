@@ -1,586 +1,331 @@
 /* ================================
-   FONT IMPORTS
-=================================== */
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+   VARIABLES  
+================================ */
+:root {
+  --bg: #FFFBEA;
+  --text: #004B29;
+}
+
 
 /* ================================
-SCROLL NAVIGATION WIDGET
-=================================== */
-.scroll-nav {
-position: fixed;
-right: 30px;
-top: 50%;
-transform: translateY(-50%);
-display: flex;
-flex-direction: column;
-gap: 14px;
-z-index: 1000;
-}
-
-
-.scroll-nav a {
-width: 14px;
-height: 14px;
-border-radius: 50%;
-background-color: rgba(255, 255, 255, 0.4);
-border: 2px solid #FFD54F;
-transition: all 0.3s ease;
-}
-
-
-.scroll-nav a.active {
-background-color: #FFD54F;
-transform: scale(1.3);
-}
-
-
-.scroll-nav a:hover {
-background-color: #FFE082;
-}
-
-
-@media (max-width: 768px) {
-.scroll-nav {
-right: 15px;
-gap: 10px;
-}
-}
-
-/* ================================
-   GLOBAL RESET & BASE
-=================================== */
-html, body {
+   RESET & BASE 
+================================ */
+* {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+html {
   width: 100%;
-  background-color: #FFFBEA;
+  height: 100%;
   scroll-behavior: smooth;
 }
 
 body {
+  min-height: 100%;
   font-family: "Noto Sans KR", sans-serif;
   line-height: 1.7;
-  color: #333;
+  background-color: var(--bg); /* ✅ 배경은 body가 담당 -> 단일책임 원칙!*/
+  color: var(--text);
+  overflow-x: hidden;
 }
 
-h1, h2, h3 {
+/* Headings */
+h1,
+h2,
+h3 {
   font-family: "Black Han Sans", sans-serif;
   font-weight: 400;
   letter-spacing: -1px;
 }
 
 /* ================================
-   SECTION LAYOUT
-=================================== */
-section {
+   HEADER
+================================ */
+
+header {
+  position: fixed;
+  top: 0;
   width: 100%;
-  padding: 100px 0;
-  position: relative;
-  box-sizing: border-box;
+  height: 72px;
+  /* ✅ 헤더 높이 기준 확정 */
+  display: flex;
+  align-items: center;
+  background: rgba(255, 251, 234, 0.9);
+  backdrop-filter: blur(6px);
+  z-index: 100;
 }
 
-.section-inner {
-  width: min(90%, 1400px);
+header .container {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 60px;
+  padding: 0 24px;
+  /* ✅ 위아래 패딩 제거 */
 }
+
+/* ================================
+   NAVIGATION
+================================ */
+.nav {
+  display: flex;
+  justify-content: center;
+  /* ✅ 가로 중앙 정렬 */
+  align-items: center;
+}
+
+.nav>div {
+  display: flex;
+  gap: 32px;
+  /* 메뉴 간 간격 */
+}
+
+/* NAV LINK */
+.nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #004B29;
+  position: relative;
+  padding: 4px 0;
+  text-decoration: none;
+}
+
+/* NAV ACTIVE */
+.nav a.active {
+  font-weight: 700;
+  color: #004B29;
+}
+
+.nav a.active::after {
+  width: 100%;
+}
+
+/* Hover underline animation */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #004B29;
+  transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* ================================
+   MAIN
+================================ */
+main {
+  padding-top: 0; /* 헤더 높이에 맞게 조정 가능 */
+}
+
+/* ================================
+   SECTION BASE
+================================ */
+
+.section {
+  background-color: var(--bg);  /* body와 동일 */
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 72px 24px 40px; /* ✅ 80 → 72 */
+  scroll-margin-top: 72px; /* ✅ 80 → 72 */
+
+  text-align: center;
+}
+
+/* ================================
+   SECTION CONTENT WRAPPER
+================================ */
+.section-content {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* reveal 기본 상태: 아래에 있고, 투명 */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 700ms ease, transform 700ms ease;
+  will-change: opacity, transform;
+}
+
+/* 화면에 들어오면: 제자리 + 보임 */
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 /* ================================
    HERO
-=================================== */
-.hero {
-  background: linear-gradient(#FFFBEA, #FFD54F);
-  text-align: center;
-  padding: 150px 10%;
-}
-.hero img {
-  width: 260px;
-  max-width: 80%;
-  animation: float 3s ease-in-out infinite;
-}
-.hero h1 {
-  color: #004B29;
-  font-size: 2.6rem;
-  margin-top: 20px;
-}
-.hero h1 span {
-  color: #FFD54F;
-}
-.hero .sub-text {
-  color: #6D4C41;
-  font-size: 1rem;
-  margin-top: 8px;
+================================ */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.hero-kicker {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
 }
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  /* 위·아래 간격 */
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.hero-line {
+  display: block;
+}
+
+.hero-image img {
+  width: 140px; /* 필요에 따라 80~160px */
+  height: auto;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  opacity: 0.8;
+  max-width: 90ch;
+  margin: 0 auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.btn-ghost {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--text);
+  background: transparent;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.hero-meta {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
 
 
 /* ================================
-   PROBLEM SECTION — 글자 크기 고정 + 반응형 안정화
+   PROBLEM
 ================================ */
-.problem {
-  background-color: #004B29;
-  color: #FFFBEA;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  min-height: 100vh;
-  box-sizing: border-box;
-  padding: 60px 20px;
-  font-size: 16px; /* ✅ 기본 글자 크기 고정 */
-}
 
-.problem * {
-  font-size: inherit; /* ✅ 내부 모든 요소에 동일 크기 적용 */
-}
-
-.problem .section-inner {
-  max-width: 900px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 제목 */
-.problem h2 {
-  color: #FFD54F;
-  font-size: 2rem; /* ✅ 절대 단위 유지 */
-  margin-bottom: 24px;
-  font-weight: 700;
-}
-
-/* 본문 */
-.problem-intro,
-.problem-conclusion {
-  max-width: 800px;
-  margin: 0 auto 50px;
-  line-height: 1.8;
-  font-size: 1rem;
-  opacity: 0.95;
-}
-
-.problem-card h4 {
-  color: #FFD54F;
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.problem-card p {
-  color: #FFFBEA;
-  font-size: 0.95rem;
-  opacity: 0.95;
-  line-height: 1.7;
-  margin: 0;
-}
-
-/* 반응형 글자 조정 — 전체 단위로만 */
-@media (max-width: 768px) {
-  .problem {
-    font-size: 15px; /* 모바일에서만 살짝 축소 */
-  }
-  .problem h2 {
-    font-size: 1.6rem;
-  }
-}
 
 
 /* ================================
    REBRANDING
-=================================== */
-.rebranding {
-  background-color: #FFD54F;
-  color: #004B29;
-  text-align: center;
-  padding: 100px 20px;
-  position: relative;
-}
+================================ */
 
-.rebranding::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 4px;
-  border-radius: 2px;
-  background: #004B29;
-  opacity: 0.2;
-}
 
-.rebranding .image-block.double {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  background-color: #FFF;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.rebranding .image-block.double img {
-  width: 48%;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-  background-color: #FFFBEA;
-}
-
-.rebranding .image-block.double img:hover {
-  transform: scale(1.03);
-}
-
-.rebranding .text-block {
-  max-width: 750px;
-  margin: 40px auto 0;
-  text-align: center;
-  line-height: 1.8;
-}
-
-.rebranding .text-block h2 {
-  color: #004B29;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-.rebranding .text-block p {
-  margin-bottom: 10px;
-  font-size: 1rem;
-}
-
-@media (max-width: 900px) {
-  .rebranding .image-block.double {
-    flex-direction: column;
-    align-items: center;
-  }
-  .rebranding .image-block.double img {
-    width: 90%;
-  }
-  .rebranding .text-block h2 {
-    font-size: 1.6rem;
-  }
-  .rebranding .text-block p {
-    font-size: 0.95rem;
-  }
-}
 
 /* ================================
    INTRODUCTION
-=================================== */
-.introduction {
-  background-color: #004B29;
-  color: #FFFBEA;
-}
-.introduction h2 {
-  color: #FFD54F;
-}
-.introduction .image-block img {
-  width: 380px;
-  max-width: 90%;
-  height: auto;
-  border-radius: 12px;
-  transition: transform 0.3s ease;
-}
-.introduction .image-block img:hover {
-  transform: scale(1.03);
-}
+================================ */
+
+
+
 
 /* ================================
    CHARACTERS
-=================================== */
-.characters {
-  background-color: #004B29;
-  color: #FFFBEA;
-}
-.characters h2 {
-  color: #FFD54F;
-}
+================================ */
 
-.characters .text-block {
-  display: flex;               
-  flex-direction: column;      
-  align-items: center;        
-  justify-content: center;     
-  text-align: center;          
-  margin: 0 auto 60px auto;    
-  max-width: 800px;            
-}
-.characters .text-block p {
-  font-size: 1rem;
-  line-height: 1.7;
-  opacity: 0.9;
-}
-.character-grid {
-  display: flex;
-  justify-content: center;     /* ✅ 카드들을 가로 중앙 정렬 */
-  align-items: center;         /* ✅ 세로축 정렬 (필요시) */
-  flex-wrap: wrap;
-  gap: 40px;
-  margin: 0 auto;              /* ✅ 전체 그리드 중앙 정렬 */
-  margin-top: 40px;
-  max-width: 1000px;           /* ✅ 폭 제한 (선택사항) */
-}
 
-.char-card {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 213, 79, 0.5);
-  border-radius: 16px;
-  width: 260px;
-  padding: 25px 15px;
-  text-align: center;          /* ✅ 카드 내부 텍스트 중앙 정렬 */
-  transition: all 0.3s ease;
-  display: flex;               /* ✅ 카드 내부 내용 정렬 */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.char-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
-}
-
-.char-card img {
-  width: 100%;
-  border-radius: 12px;
-}
-
-.char-card h3 {
-  color: #FFD54F;
-  margin-top: 15px;
-  text-align: center;          /* ✅ 제목 중앙 정렬 */
-}
 
 
 /* ================================
-   BEHIND
-=================================== */
-.behind {
-  background-color: #004B29;
-  color: #FFFBEA;
-}
-.behind h2 {
-  color: #FFD54F;
-}
-.behind .image-block.double {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-.behind .image-block img {
-  width: 380px;
-  max-width: 90%;
-  border-radius: 12px;
-  transition: transform 0.3s ease;
-}
-.behind .image-block img:hover {
-  transform: scale(1.03);
-}
+   CONCEPT ART
+================================ */
 
-/* ================================
-   MEDIA
-=================================== */
-.media {
-  background-color: #004B29;
-  color: #FFFBEA;
-  text-align: center;
-}
-.media h2 {
-  color: #FFD54F;
-}
 
-.media .text-block {
-  display: flex;               
-  flex-direction: column;      
-  align-items: center;        
-  justify-content: center;     
-  text-align: center;          
-  margin: 0 auto 60px auto;    
-  max-width: 800px;            
-}
 
-.media .text-block p {
-  font-size: 1rem;
-  line-height: 1.7;
-  opacity: 0.9;
-}
 
-.media-grid {
-  display: flex;
-  justify-content: center;      
-  align-items: center;          
-  flex-wrap: wrap;
-  gap: 50px;
-  margin: 0 auto;               
-  margin-top: 50px;
-  max-width: 1100px;            
-}
-
-.media-card {
-  width: 320px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 25px 20px;
-  text-align: center;           /* ✅ 카드 안의 텍스트도 중앙 정렬 */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-  display: flex;                /* ✅ 카드 내부도 중앙 정렬 */
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.media-card:hover {
-  transform: translateY(-6px);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.media-card h3 {
-  color: #FFD54F;
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-  border-bottom: 1.5px solid rgba(255, 213, 79, 0.6);
-  padding-bottom: 6px;
-}
-
-.media-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  opacity: 0.9;
-  margin: 0;
-}
-
-/* ================================
-   SECTION DIVIDER
-=================================== */
-.introduction::after,
-.characters::after,
-.behind::after {
-  content: "";
-  display: block;
-  width: 98%;
-  max-width: 1800px;
-  height: 2px;
-  background-color: #FFD54F;
-  margin: 100px auto 0 auto;
-  opacity: 0.95;
-  border-radius: 1px;
-}
 
 /* ================================
    FOOTER
-=================================== */
+================================ */
 footer {
-  background: #002F1C;
-  color: #FFD54F;
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px 16px 64px;
+  font-size: 0.85rem;
+  line-height: 1.6;
   text-align: center;
-  padding: 30px 0;
-  font-size: 0.9rem;
 }
+
 
 /* ================================
-   ANIMATION
-=================================== */
-.fade-up {
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeUp 1.2s ease forwards;
-}
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ================================
-   RESPONSIVE DESIGN
-=================================== */
-
-/* Tablet */
-@media (max-width: 1024px) {
-  .section-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-  .rebranding .image-block.double {
-    flex-direction: column;
-  }
-  .rebranding .image-block.double img {
-    width: 80%;
-  }
-  .char-card {
-    width: 45%;
-  }
-  .media-card {
-    width: 45%;
-  }
-}
-
-/* Mobile */
+   RESPONSIVE
+================================ */
 @media (max-width: 768px) {
-  .section-inner {
-    flex-direction: column;
-    text-align: center;
+  .nav>div {
+    gap: 16px; /* ✅ 모바일 간격 */
+    flex-wrap: wrap; /* ✅ 줄바꿈 허용 */
+    justify-content: center;
   }
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.6rem;
-  }
-  .hero img {
-    width: 200px;
-  }
-  .problem .image-block img {
-    width: 80%;
-  }
-  .rebranding .image-block.double img {
-    width: 90%;
-  }
-  .char-card, .media-card {
-    width: 80%;
-  }
-  .introduction .image-block img,
-  .behind .image-block img {
-    width: 85%;
-  }
-  footer {
-    font-size: 0.8rem;
+
+  .nav a {
+    margin-right: 0; /* ✅ 제거 */
   }
 }
 
-/* Small Mobile */
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 1.6rem;
-  }
-  .section-inner {
-    gap: 30px;
-  }
-  .char-card, .media-card {
-    width: 100%;
-  }
-  .rebranding .image-block.double {
-    padding: 15px;
-  }
-  .media-grid {
-    gap: 20px;
+/* 모션 민감 사용자 배려 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    transform: none;
+    opacity: 1;
   }
 }
