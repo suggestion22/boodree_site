@@ -6,6 +6,34 @@
   --text: #004B29;
 }
 
+/* ================================
+   BACKGROUND BUBBLES (Canvas)
+================================ */
+#bubbles-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* 클릭 방해 X */
+  z-index: 0;
+  opacity: 0.9;
+}
+
+/* 콘텐츠는 캔버스 위로 */
+header,
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* 모션 민감 사용자 배려: 캔버스 숨김 */
+@media (prefers-reduced-motion: reduce) {
+  #bubbles-canvas {
+    display: none;
+  }
+}
 
 /* ================================
    RESET & BASE 
@@ -62,7 +90,7 @@ h3 {
 }
 
 .btn-ghost {
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--text);
   color: var(--text);
   background: transparent;
 }
@@ -153,9 +181,7 @@ header .container {
 ================================ */
 
 .section {
-  background-color: var(--bg);  /* body와 동일 */
   min-height: 100vh;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,13 +189,13 @@ header .container {
   padding: 72px 24px 40px; /* ✅ 80 → 72 */
   scroll-margin-top: 72px; /* ✅ 80 → 72 */
 
-  text-align: center;
+  text-align: left;
 }
 
 .section-lead {
   max-width: 70ch;
   margin: 18px auto 28px;
-  text-align: center;
+  text-align: inherit;
   line-height: 1.8;
 }
 
@@ -179,21 +205,19 @@ header .container {
 .section-content {
   width: min(100%, 900px);
   margin: 0 auto;
-  text-align: center;
+  text-align: inherit;
 }
 
 /* reveal 기본 상태: 아래에 있고, 투명 */
 .reveal {
   opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 700ms ease, transform 700ms ease;
-  will-change: opacity, transform;
+  transform: none;
+  transition: none;
 }
 
 /* 화면에 들어오면: 제자리 + 보임 */
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
 }
 
 
@@ -204,6 +228,7 @@ header .container {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  text-align: center;
 }
 
 .hero-kicker {
@@ -250,13 +275,81 @@ header .container {
   margin-top: 10px;
 }
 
-
 .hero-meta {
   margin-top: 12px;
   font-size: 0.85rem;
   opacity: 0.6;
 }
 
+
+/* HERO MOTIONS */
+
+/* Hero 내부 요소들 기본 숨김 */
+.hero-content>* {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+/* 순서별 딜레이 화면에 들어오면 하나씩 등장 */
+.hero-content.is-visible>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* kicker */
+.hero-content.is-visible>*:nth-child(1) {
+  transition-delay: 80ms;
+}
+
+/* title */
+.hero-content.is-visible>*:nth-child(2) {
+  transition-delay: 160ms;
+}
+/* subtitle */
+.hero-content.is-visible>*:nth-child(3) {
+  transition-delay: 240ms;
+}
+/* actions */
+.hero-content.is-visible>*:nth-child(4) {
+  transition-delay: 320ms;
+}
+/* meta */
+.hero-content.is-visible>*:nth-child(5) {
+  transition-delay: 400ms;
+}
+
+/*  화면에 들어오면: 부드럽게 떠오르는 모션 */
+.hero-content.is-visible .hero-image img {
+  animation: hero-float 3.6s ease-in-out infinite;
+}
+
+/* 떠오르는 모션 키프레임 */
+@keyframes hero-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* HERO 내 버튼 호버/액티브 모션 */
+.hero-actions .btn {
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.hero-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+.hero-actions .btn:active {
+  transform: translateY(0);
+}
 
 /* ================================
    PROBLEM
@@ -336,6 +429,98 @@ header .container {
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 38px;
+}
+
+/* PROBLEM MOTIONS */
+/* Problem 내부 요소들 기본 숨김 */
+.problem-content>* {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+/* 화면에 들어오면 하나씩 등장 */
+.problem-content.is-visible>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3) 순서별 딜레이  kicker ~ actions*/ 
+
+/* 첫 번째 요소  kicker */
+.problem-content.is-visible>*:nth-child(1) {
+  transition-delay: 80ms;
+}
+
+/* 두 번째 요소  title */
+.problem-content.is-visible>*:nth-child(2) {
+  transition-delay: 160ms;
+}
+
+/* 세 번째 요소  lead */
+.problem-content.is-visible>*:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+/* 네 번째 요소  grid */
+.problem-content.is-visible>*:nth-child(4) {
+  transition-delay: 320ms;
+}
+
+/* grid 내부 카드들 별도 모션 */
+.problem-content:not(.is-visible) .problem-grid .problem-card {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* 화면에 들어오면: 카드들 순차적 등장 */
+.problem-content.is-visible .problem-grid .problem-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+/* 카드 딜레이: grid(320ms) 뒤에 자연스럽게 이어지게 */
+.problem-content.is-visible .problem-grid .problem-card:nth-child(1) {
+  transition-delay: 360ms;
+}
+
+.problem-content.is-visible .problem-grid .problem-card:nth-child(2) {
+  transition-delay: 420ms;
+}
+
+.problem-content.is-visible .problem-grid .problem-card:nth-child(3) {
+  transition-delay: 480ms;
+}
+
+.problem-content.is-visible .problem-grid .problem-card:nth-child(4) {
+  transition-delay: 540ms;
+}
+
+/* 다섯 번째 요소  conclusion */
+.problem-content.is-visible>*:nth-child(5) {
+  transition-delay: 600ms;
+}
+
+/* 여섯 번째 요소  actions */
+.problem-content.is-visible>*:nth-child(6) {
+  transition-delay: 680ms;
+}
+
+
+/* problem 내 버튼 호버/액티브 모션 */
+.problem-actions .btn {
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.problem-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+.problem-actions .btn:active {
+  transform: translateY(0);
 }
 
 /* Responsive */
@@ -437,12 +622,110 @@ header .container {
   margin-top: 38px;
 }
 
+/* REBRANDING MOTIONS */
+/* Rebranding 내부 요소들 기본 숨김 */
+.rebranding-content>* {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+/* 화면에 들어오면 하나씩 등장 */
+.rebranding-content.is-visible>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 순서별 딜레이  kicker ~ actions*/
+
+/* 첫 번째 요소  kicker */
+.rebranding-content.is-visible>*:nth-child(1) {
+  transition-delay: 80ms;
+}
+
+/* 두 번째 요소  title */
+.rebranding-content.is-visible>*:nth-child(2) {
+  transition-delay: 160ms;
+}
+
+/* 세 번째 요소  lead */
+.rebranding-content.is-visible>*:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+/* 네 번째 요소  media */
+.rebranding-content.is-visible>*:nth-child(4) {
+  transition-delay: 320ms;
+}
+
+/* 다섯 번째 요소  grid */
+.rebranding-content.is-visible>*:nth-child(5) {
+  transition-delay: 400ms;
+}
+
+/* 카드: is-visible 이전에는 숨김 */
+.rebranding-content:not(.is-visible) .rebranding-grid .rebranding-card {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* 카드: is-visible 이후 등장 */
+.rebranding-content.is-visible .rebranding-grid .rebranding-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+/* 카드별 딜레이 (grid 400ms 이후 자연스럽게) */
+.rebranding-content.is-visible .rebranding-grid .rebranding-card:nth-child(1) {
+  transition-delay: 440ms;
+}
+
+.rebranding-content.is-visible .rebranding-grid .rebranding-card:nth-child(2) {
+  transition-delay: 500ms;
+}
+
+.rebranding-content.is-visible .rebranding-grid .rebranding-card:nth-child(3) {
+  transition-delay: 560ms;
+}
+
+.rebranding-content.is-visible .rebranding-grid .rebranding-card:nth-child(4) {
+  transition-delay: 620ms;
+}
+
+
+/* 여섯 번째 요소  conclusion */
+.rebranding-content.is-visible>*:nth-child(6) {
+  transition-delay: 680ms;
+}
+
+/* 일곱 번째 요소  actions */
+.rebranding-content.is-visible>*:nth-child(7) {
+  transition-delay: 740ms;
+}
+
+/* rebranding 내 버튼 호버/액티브 모션 */
+.rebranding-actions .btn {
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.rebranding-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+.rebranding-actions .btn:active {
+  transform: translateY(0);
+}
+
+
 /* ================================
    INTRODUCTION
 ================================ */
 
 .intro-content {
-  text-align: left;
+  text-align: center;
 }
 
 .intro-question {
@@ -489,6 +772,67 @@ header .container {
   display: flex;
   justify-content: center;
   margin-top: 34px;
+}
+
+.intro-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 38px;
+}
+
+/* INTRODUCTION MOTIONS */
+/* Introduction 내부 요소들 기본 숨김 */
+.intro-content>* {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+/*  순서별 딜레이 */
+.intro-content.is-visible>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* kicker */
+.intro-content.is-visible>*:nth-child(1) {
+  transition-delay: 80ms;
+}
+
+/* title */
+.intro-content.is-visible>*:nth-child(2) {
+  transition-delay: 160ms;
+}
+
+/* question */
+.intro-content.is-visible>*:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+/* body */
+.intro-content.is-visible>*:nth-child(4) {
+  transition-delay: 320ms;
+}
+
+/* actions */
+.intro-content.is-visible>*:nth-child(5) {
+  transition-delay: 520ms;
+}
+
+/* rebranding 내 버튼 호버/액티브 모션 */
+.intro-actions .btn {
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.intro-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+.intro-actions .btn:active {
+  transform: translateY(0);
 }
 
 /* ================================
@@ -573,7 +917,6 @@ header .container {
   grid-template-columns: 140px 1fr;
   gap: 14px;
   padding: 10px 0;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
 }
 
 .guide-label {
@@ -593,6 +936,178 @@ header .container {
   margin: 14px auto 0;
   opacity: 0.8;
   line-height: 1.8;
+}
+
+.characters-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 34px;
+}
+
+.characters-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 38px;
+}
+
+
+/* CHARACTERS MOTIONS */
+/*characters-guide 전체 기본 숨김 */
+.characters-guide>* {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+/* 화면에 들어오면 하나씩 등장 */
+.characters-guide.is-visible>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+ /* kicker */
+.characters-guide.is-visible>*:nth-child(1) {
+  transition-delay: 80ms;
+}
+
+/* title */
+.characters-guide.is-visible>*:nth-child(2) {
+  transition-delay: 160ms;
+}
+
+/* lead */
+.characters-guide.is-visible>*:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+/* BOODREE block */
+.characters-guide.is-visible>*:nth-child(4) {
+  transition-delay: 320ms;
+}
+/* FRIENDS block */
+.characters-guide.is-visible>*:nth-child(5) {
+  transition-delay: 400ms;
+}
+/* actions */
+.characters-guide.is-visible>*:nth-child(6) {
+  transition-delay: 520ms;
+}
+
+/* 2) BOODREE 내부 (block 1) */
+.characters-guide:not(.is-visible) .guide-block:first-of-type .character-hero,
+.characters-guide:not(.is-visible) .guide-block:first-of-type .guide-one,
+.characters-guide:not(.is-visible) .guide-block:first-of-type .guide-grid .guide-row {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .character-hero,
+.characters-guide.is-visible .guide-block:first-of-type .guide-one,
+.characters-guide.is-visible .guide-block:first-of-type .guide-grid .guide-row {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .character-hero {
+  transition-delay: 360ms;
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .guide-one {
+  transition-delay: 420ms;
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .guide-grid .guide-row:nth-child(1) {
+  transition-delay: 480ms;
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .guide-grid .guide-row:nth-child(2) {
+  transition-delay: 540ms;
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .guide-grid .guide-row:nth-child(3) {
+  transition-delay: 600ms;
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .guide-grid .guide-row:nth-child(4) {
+  transition-delay: 660ms;
+}
+
+.characters-guide.is-visible .guide-block:first-of-type .guide-grid .guide-row:nth-child(5) {
+  transition-delay: 720ms;
+}
+
+
+/* 3) FRIENDS 내부 (block 2) */
+.characters-guide:not(.is-visible) .guide-block:nth-of-type(2) .guide-one,
+.characters-guide:not(.is-visible) .guide-block:nth-of-type(2) .friends-media .friends-figure,
+.characters-guide:not(.is-visible) .guide-block:nth-of-type(2) .guide-grid .guide-row,
+.characters-guide:not(.is-visible) .guide-block:nth-of-type(2) .guide-note {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-one,
+.characters-guide.is-visible .guide-block:nth-of-type(2) .friends-media .friends-figure,
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-grid .guide-row,
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-note {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-one {
+  transition-delay: 440ms;
+}
+
+/* figure 3개 (nth-of-type가 안전) */
+.characters-guide.is-visible .guide-block:nth-of-type(2) .friends-media .friends-figure:nth-of-type(1) {
+  transition-delay: 500ms;
+}
+
+.characters-guide.is-visible .guide-block:nth-of-type(2) .friends-media .friends-figure:nth-of-type(2) {
+  transition-delay: 560ms;
+}
+
+.characters-guide.is-visible .guide-block:nth-of-type(2) .friends-media .friends-figure:nth-of-type(3) {
+  transition-delay: 620ms;
+}
+
+/* row 3개 */
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-grid .guide-row:nth-child(1) {
+  transition-delay: 680ms;
+}
+
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-grid .guide-row:nth-child(2) {
+  transition-delay: 740ms;
+}
+
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-grid .guide-row:nth-child(3) {
+  transition-delay: 800ms;
+}
+
+/* note */
+.characters-guide.is-visible .guide-block:nth-of-type(2) .guide-note {
+  transition-delay: 860ms;
+}
+
+
+/* rebranding 내 버튼 호버/액티브 모션 */
+.characters-actions .btn {
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.characters-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+.characters-actions .btn:active {
+  transform: translateY(0);
 }
 
 /* ================================
@@ -630,7 +1145,7 @@ header .container {
   display: flex;
   gap: 18px;
   width: max-content;
-  animation: marquee-left 35s linear infinite; /* ✅ 여기만 조절 */
+  animation: marquee-left 58s linear infinite; /* ✅ 여기만 조절 */
 }
 
 /* 프레임(카드) */
@@ -706,11 +1221,16 @@ footer {
   }
 }
 
-/* 모션 민감 사용자 배려 */
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    transition: none;
-    transform: none;
-    opacity: 1;
+  .reveal,
+  .hero-content>*,
+  .problem-content>*,
+  .rebranding-content>*,
+  .intro-content>*,
+  .characters-guide>* {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+    opacity: 1 !important;
   }
 }
