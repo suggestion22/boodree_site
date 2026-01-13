@@ -2,8 +2,50 @@
    VARIABLES  
 ================================ */
 :root {
-  --bg: #FFFBEA;
-  --text: #004B29;
+
+  /* ================================
+    COLOR TOKENS
+  ================================ */
+  --c-bg: #FFFBEA;
+  --c-text: #004B29;
+  --c-white: #ffffff;
+
+  /* ================================
+    GLASS / SURFACE
+  ================================ */
+  --glass-strong: rgba(255, 255, 255, 0.35);
+  --glass-medium: rgba(255, 255, 255, 0.28);
+  --glass-weak: rgba(255, 255, 255, 0.22);
+
+  --overlay-dark: rgba(0, 0, 0, 0.78);
+  --overlay-light: rgba(0, 0, 0, 0.35);
+
+  /* ================================
+    RADIUS
+  ================================ */
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-pill: 999px;
+
+  /* ================================
+    SHADOW
+  ================================ */
+  --shadow-sm: 0 10px 24px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 16px 36px rgba(0, 0, 0, 0.12);
+
+  /* ================================
+    MOTION TOKENS  👈 여기!
+  ================================ */
+  --reveal-offset: 14px;
+  --reveal-duration: 600ms;
+  --reveal-ease: ease;
+
+  /* ================================
+    CONCEPTART VIEWER
+  ================================ */
+  --cpv-btn-size: 48px;
+  --cpv-btn-font: 1.8rem;
+  --cpv-close-font: 1.3rem;
 }
 
 /* ================================
@@ -54,8 +96,9 @@ body {
   min-height: 100%;
   font-family: "Noto Sans KR", sans-serif;
   line-height: 1.7;
-  background-color: var(--bg); /* ✅ 배경은 body가 담당 -> 단일책임 원칙!*/
-  color: var(--text);
+  background-color: var(--c-bg);
+  /* ✅ 배경은 body가 담당 -> 단일책임 원칙!*/
+  color: var(--c-text);
   overflow-x: hidden;
 }
 
@@ -73,7 +116,7 @@ h3 {
   align-items: center;
   justify-content: center;
   padding: 12px 18px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-weight: 700;
   font-size: 0.95rem;
   text-decoration: none;
@@ -85,13 +128,13 @@ h3 {
 }
 
 .btn-primary {
-  background: var(--text);
-  color: var(--bg);
+  background: var(--c-text);
+  color: var(--c-bg);
 }
 
 .btn-ghost {
-  border: 1px solid var(--text);
-  color: var(--text);
+  border: 1px solid var(--c-text);
+  color: var(--c-text);
   background: transparent;
 }
 
@@ -111,7 +154,7 @@ header {
   /* ✅ 헤더 높이 기준 확정 */
   display: flex;
   align-items: center;
-  background: rgba(255, 251, 234, 0.9);
+  background: color-mix(in srgb, var(--c-bg) 90%, transparent);
   backdrop-filter: blur(6px);
   z-index: 100;
 }
@@ -144,7 +187,7 @@ header .container {
 .nav a {
   font-size: 0.95rem;
   font-weight: 500;
-  color: #004B29;
+  color: var(--c-text);
   position: relative;
   padding: 4px 0;
   text-decoration: none;
@@ -153,7 +196,7 @@ header .container {
 /* NAV ACTIVE */
 .nav a.active {
   font-weight: 700;
-  color: #004B29;
+  color: var(--c-text);
 }
 
 .nav a.active::after {
@@ -168,7 +211,7 @@ header .container {
   bottom: -4px;
   width: 0;
   height: 2px;
-  background-color: #004B29;
+  background-color: var(--c-text);
   transition: width 0.3s ease;
 }
 
@@ -186,8 +229,10 @@ header .container {
   align-items: center;
   justify-content: center;
 
-  padding: 72px 24px 40px; /* ✅ 80 → 72 */
-  scroll-margin-top: 72px; /* ✅ 80 → 72 */
+  padding: 72px 24px 40px;
+  /* ✅ 80 → 72 */
+  scroll-margin-top: 72px;
+  /* ✅ 80 → 72 */
 
   text-align: left;
 }
@@ -211,8 +256,13 @@ header .container {
 /* reveal 기본 상태: 아래에 있고, 투명 */
 .reveal {
   opacity: 0;
-  transform: none;
-  transition: none;
+}
+
+.reveal-motion {
+  transform: translateY(var(--reveal-offset));
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease);
 }
 
 /* 화면에 들어오면: 제자리 + 보임 */
@@ -247,7 +297,7 @@ header .container {
 
   font-size: clamp(2.4rem, 4.6vw, 4rem);
   line-height: 1.05;
-  color: var(--text);
+  color: var(--c-text);
 }
 
 .hero-line {
@@ -307,14 +357,17 @@ header .container {
 .hero-content.is-visible>*:nth-child(2) {
   transition-delay: 160ms;
 }
+
 /* subtitle */
 .hero-content.is-visible>*:nth-child(3) {
   transition-delay: 240ms;
 }
+
 /* actions */
 .hero-content.is-visible>*:nth-child(4) {
   transition-delay: 320ms;
 }
+
 /* meta */
 .hero-content.is-visible>*:nth-child(5) {
   transition-delay: 400ms;
@@ -389,15 +442,15 @@ header .container {
 
 .problem-card {
   border: 1px solid rgba(0, 0, 0, 0.10);
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   padding: 18px 18px;
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--glass-strong);
 }
 
 .problem-card h3 {
   font-size: 1.05rem;
   margin-bottom: 10px;
-  color: var(--text);
+  color: var(--c-text);
 }
 
 .problem-card ul {
@@ -420,7 +473,7 @@ header .container {
 }
 
 .problem-conclusion strong {
-  color: var(--text);
+  color: var(--c-text);
 }
 
 .problem-actions {
@@ -446,7 +499,7 @@ header .container {
   transform: translateY(0);
 }
 
-/* 3) 순서별 딜레이  kicker ~ actions*/ 
+/* 3) 순서별 딜레이  kicker ~ actions*/
 
 /* 첫 번째 요소  kicker */
 .problem-content.is-visible>*:nth-child(1) {
@@ -524,20 +577,7 @@ header .container {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .problem-grid {
-    grid-template-columns: 1fr;
-  }
 
-  .problem-content {
-    text-align: center;
-  }
-
-  .problem-card {
-    text-align: left;
-    /* 카드 안은 읽기 좋게 */
-  }
-}
 
 /* ================================
    REBRANDING
@@ -556,8 +596,8 @@ header .container {
   margin: 18px auto 22px;
   padding: 16px 18px;
   border: 1px solid rgba(0, 0, 0, 0.10);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.30);
+  border-radius: var(--radius-md);
+  background: var(--glass-medium);
   text-align: center;
 }
 
@@ -589,15 +629,15 @@ header .container {
 
 .rebranding-card {
   border: 1px solid rgba(0, 0, 0, 0.10);
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   padding: 18px;
-  background: rgba(255, 255, 255, 0.22);
+  background: var(--glass-weak);
 }
 
 .rebranding-card h3 {
   margin: 0 0 10px;
   font-size: 1.05rem;
-  color: var(--text);
+  color: var(--c-text);
 }
 
 .rebranding-card p {
@@ -752,13 +792,13 @@ header .container {
   font-size: 1.1rem;
   padding: 18px 16px;
   border: 1px solid rgba(0, 0, 0, 0.10);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-md);
+  background: var(--glass-medium);
   margin: 18px 0;
 }
 
 .intro-emphasis strong {
-  color: var(--text);
+  color: var(--c-text);
 }
 
 .intro-conclusion {
@@ -898,7 +938,7 @@ header .container {
 .guide-title {
   margin: 0 0 10px;
   font-size: 1.15rem;
-  color: var(--text);
+  color: var(--c-text);
 }
 
 .guide-one {
@@ -968,7 +1008,7 @@ header .container {
   transform: translateY(0);
 }
 
- /* kicker */
+/* kicker */
 .characters-guide.is-visible>*:nth-child(1) {
   transition-delay: 80ms;
 }
@@ -987,10 +1027,12 @@ header .container {
 .characters-guide.is-visible>*:nth-child(4) {
   transition-delay: 320ms;
 }
+
 /* FRIENDS block */
 .characters-guide.is-visible>*:nth-child(5) {
   transition-delay: 400ms;
 }
+
 /* actions */
 .characters-guide.is-visible>*:nth-child(6) {
   transition-delay: 520ms;
@@ -1115,6 +1157,7 @@ header .container {
 ================================ */
 .conceptart-content {
   overflow: hidden;
+  text-align: center;
 }
 
 .conceptart-marquee {
@@ -1135,37 +1178,59 @@ header .container {
   pointer-events: none;
   z-index: 2;
   background: linear-gradient(to right,
-      var(--bg) 0%,
+      var(--c-bg) 0%,
       rgba(255, 251, 234, 0) 12%,
       rgba(255, 251, 234, 0) 88%,
-      var(--bg) 100%);
+      var(--c-bg) 100%);
+}
+
+.conceptart-marquee:hover .conceptart-track {
+  animation-play-state: paused;
 }
 
 .conceptart-track {
   display: flex;
   gap: 18px;
   width: max-content;
-  animation: marquee-left 58s linear infinite; /* ✅ 여기만 조절 */
+  animation: marquee-left 58s linear infinite;
+  /* ✅ 여기만 조절 */
+  animation-play-state: paused;
+}
+
+.conceptart-content.is-visible .conceptart-track {
+  animation-play-state: running;
 }
 
 /* 프레임(카드) */
 .concept-card {
   margin: 0;
   flex-shrink: 0;
-  width: clamp(260px, 32vw, 420px);
-  border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.35);
-  padding: 12px;
 
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  width: clamp(320px, 32vw, 520px);
+
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--glass-strong);
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+
+  cursor: pointer;
+  transition: transform 260ms ease, box-shadow 260ms ease;
 }
+
+.concept-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
 
 .concept-card img {
   width: 100%;
-  height: 240px;
+
+  height: 320px;
+
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   display: block;
 }
 
@@ -1187,6 +1252,172 @@ header .container {
 }
 
 
+
+/* ================================
+   CONCEPTART VIEWER (Naver-style)
+================================ */
+body.cpv-open {
+  overflow: hidden;
+}
+
+.cpv {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+}
+
+.cpv.is-open {
+  display: block;
+}
+
+.cpv-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-dark);
+
+  z-index: 1;
+}
+
+.cpv-ui {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  z-index: 2;
+}
+
+/* Top bar */
+.cpv-top {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
+  align-items: center;
+  padding: 0 14px;
+  pointer-events: none;
+}
+
+.cpv-counter {
+  grid-column: 2;
+  justify-self: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  pointer-events: auto;
+}
+
+.cpv-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: var(--cpv-btn-size);
+  height: var(--cpv-btn-size);
+
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--overlay-light);
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: var(--cpv-close-font);
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+
+/* Stage */
+.cpv-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  align-items: center;
+  padding: 72px 14px 22px;
+  gap: 10px;
+}
+
+.cpv-figure {
+  margin: 0;
+  text-align: center;
+}
+
+#cpvImg {
+  width: 100%;
+  max-height: calc(100vh - 110px);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+#cpvCaption {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+}
+
+.cpv-nav {
+  width: var(--cpv-btn-size);
+  height: var(--cpv-btn-size);
+
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--overlay-light);
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: var(--cpv-btn-font);
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.cpv-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+
+
+
+/* ==================================================
+   CPV CLICK LAYER FIX (FINAL)
+   - layout 유지
+   - 버튼 클릭 보장
+================================================== */
+
+/* 배경: 가장 아래 (배경 클릭 닫기 유지) */
+.cpv-bg {
+  z-index: 1;
+  pointer-events: auto;
+}
+
+/* UI 컨테이너 */
+.cpv-ui {
+  z-index: 2;
+}
+
+/* 이미지 스테이지 (absolute 유지, z-index만 명시) */
+.cpv-stage {
+  z-index: 3;
+}
+
+/* 상단 바 (counter는 클릭 안 함) */
+.cpv-top {
+  z-index: 4;
+}
+
+/* 실제 클릭 대상만 최상단으로 */
+.cpv-close,
+.cpv-nav {
+  z-index: 5;
+  pointer-events: auto;
+}
+
 /* ================================
    FOOTER
 ================================ */
@@ -1198,7 +1429,7 @@ footer {
   flex-direction: column;
   gap: 12px;
 
-  
+
   padding: 48px 16px 64px;
   font-size: 0.85rem;
   line-height: 1.6;
@@ -1207,21 +1438,137 @@ footer {
 
 
 /* ================================
-   RESPONSIVE
+   CUSTOM CURSOR
 ================================ */
+
+/* 기본은 숨김(모바일/터치 대비) */
+.cursor {
+  display: none;
+}
+
+/* 마우스(정밀 포인터)에서만 활성화 */
+@media (pointer: fine) {
+  body.has-custom-cursor {
+    cursor: none;
+    /* 기본 커서 숨김 */
+  }
+
+  /* 링크/버튼 등도 기본 커서 숨기기 */
+  body.has-custom-cursor a,
+  body.has-custom-cursor button,
+  body.has-custom-cursor .btn,
+  body.has-custom-cursor .concept-card {
+    cursor: none;
+  }
+
+  .cursor {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    z-index: 4000;
+    /* cpv(2000) 위로 */
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    /* 처음엔 살짝 숨김 -> 첫 움직임에서 보임 */
+    will-change: transform, opacity, width, height;
+  }
+
+  .cursor-ring {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 75, 41, 0.28);
+    background: transparent;
+    transition: width 180ms ease, height 180ms ease, opacity 180ms ease;
+  }
+
+
+  /* 활성(인터랙티브 위) */
+  body.cursor-active .cursor-ring {
+    width: 52px;
+    height: 52px;
+    border-color: rgba(0, 75, 41, 0.38);
+  }
+
+
+  /* 클릭(press) */
+  body.cursor-down .cursor-ring {
+    width: 44px;
+    height: 44px;
+    opacity: 0.95;
+  }
+
+  .cursor {
+    pointer-events: none !important;
+  }
+}
+
+/* 모션 민감 사용자: 커스텀 커서 끄기 */
+@media (prefers-reduced-motion: reduce) {
+  body.has-custom-cursor {
+    cursor: auto !important;
+  }
+
+  .cursor {
+    display: none !important;
+  }
+}
+
+/* ================================
+   RESPONSIVE
+   - PC: base styles (no media query)
+   - Tablet: ≤ 1024px
+   - Mobile: ≤ 768px
+================================ */
+
+/* --- TABLET (≤ 1024px) --- */
+@media (max-width: 1024px) {
+  /* 필요 시 여기에 추가하세요 (현재는 PC 베이스로도 충분) */
+}
+
+/* --- MOBILE (≤ 768px) --- */
 @media (max-width: 768px) {
+  .problem-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-content {
+    text-align: center;
+  }
+
+  .problem-card {
+    text-align: left;
+    /* 카드 안은 읽기 좋게 */
+  }
+
+  .cpv-stage {
+    grid-template-columns: 48px 1fr 48px;
+    padding-top: 66px;
+  }
+
+  .cpv-nav {
+    width: 40px;
+    height: 40px;
+  }
+
   .nav>div {
-    gap: 16px; /* ✅ 모바일 간격 */
-    flex-wrap: wrap; /* ✅ 줄바꿈 허용 */
+    gap: 16px;
+    /* ✅ 모바일 간격 */
+    flex-wrap: wrap;
+    /* ✅ 줄바꿈 허용 */
     justify-content: center;
   }
 
   .nav a {
-    margin-right: 0; /* ✅ 제거 */
+    margin-right: 0;
+    /* ✅ 제거 */
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .reveal,
   .hero-content>*,
   .problem-content>*,
