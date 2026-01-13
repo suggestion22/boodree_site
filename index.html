@@ -364,8 +364,8 @@
         <h2 class="section-title">Concept Art</h2>
       
         <p class="section-lead">
-          부드리와 친구들이 만들어가는 세계관은,
-          이미지와 분위기를 통해 더욱 확장됩니다.
+          부드리와 친구들이 만들어가는 세계관은, 이미지와 분위기를 통해 더욱 확장됩니다.
+          <br>아래의 컨셉 아트들을 클릭해서 크게 볼 수 있습니다.
         </p>
       
         <div class="conceptart-marquee">
@@ -508,12 +508,40 @@
     </section>
   </main>
 
+  <!-- CONCEPT ART VIEWER -->
+  <div class="cpv" id="cpv" aria-hidden="true">
+    <div class="cpv-bg" id="cpvBg"></div>
+  
+    <div class="cpv-ui" role="dialog" aria-modal="true" aria-label="Concept art viewer">
+      <button class="cpv-close" id="cpvClose" type="button" aria-label="Close">✕</button>
+  
+      <div class="cpv-top">
+        <div class="cpv-counter" id="cpvCounter">1 / 1</div>
+      </div>
+  
+      <div class="cpv-stage">
+        <button class="cpv-nav cpv-prev" id="cpvPrev" type="button" aria-label="Previous">‹</button>
+  
+        <figure class="cpv-figure">
+          <img id="cpvImg" src="" alt="" />
+          <figcaption id="cpvCaption"></figcaption>
+        </figure>
+  
+        <button class="cpv-nav cpv-next" id="cpvNext" type="button" aria-label="Next">›</button>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <p>© 2025 BOODREE | Soft & Friendly Beer | Copyright by AJH | Worked with Chatgpt</p>
     <p>These are conceptual drafts and are not applied in reality.</p>
   </footer>
-
+  
   <script src="main.js"></script>
 </body>
+
+
+
+
 </html>
